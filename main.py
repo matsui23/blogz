@@ -20,13 +20,37 @@ class Blog(db.Model):
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
+    title = 'Build-a-blog'
+    if request.method == 'POST':
+        return render_template('blog.html')
+    if request.method == 'GET':
+        return render_template('base.html', title = title)
+    #tasks = Task.query.filter_by(completed=False).all()
 
+@app.route('/blog', methods=['POST','GET'])
+def blog():
+    title = 'Build-a-blog'
+    if request.method == 'POST':
+        return render_template('blog.html')
+    if request.method == 'GET':
+        return render_template('base.html')
+
+@app.route('/newpost', methods=['POST', 'GET'])
+def newpost():
     if request.method == 'POST':
         
+        title = request.form['title']
+        post = request.form['post']
+        new_post = Blog(title, post)
+        db.session.add(new_post)
+        db.session.commit()
+        
+        titles = Blog.query.all()
+        
+        return render_template('blog.html', titles = titles)
 
-    #tasks = Task.query.filter_by(completed=False).all()
-        pass
-
+    if request.method == 'GET':
+        return render_template('newpost.html')
 
 if __name__ == '__main__':
     app.run()

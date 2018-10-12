@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for title in titles %}
+
+
+
+<h1 class = 'post_head'>{{title.title}}</h1>
+<br>
+<br>
+<p class = 'body'>{{title.body}}</p>
+
+{% endfor %}
+
+{% endblock %}

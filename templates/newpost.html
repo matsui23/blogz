@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="/newpost" method="POST">
+
+    <input type="text" name="title" id="" placeholder = "Post title...">
+    <br>
+    <input type="text area" name="post" id="" placeholder = "Blog entry...">
+    <br>
+    <input type="submit" name = "post_submit" placeholder = "Post it!">
+
+</form>
+
+{% endblock %}
