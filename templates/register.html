@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action='/register' method="POST" id = 'register_form'>
+    <label class = 'body'>Username</label><br><br>
+    <input type="text" name="username" id="" placeholder = "Create a username..." value = ''>
+
+    {% if error_title %}
+    <p class = 'error'>Enter a username...</p>
+    {% endif %}
+
+    <br><br>
+    <label class = 'body'>Password</label><br><br>
+    <input type="text" name="password" id="" placeholder="Select a password..." value = ''>
+
+    {% if error_post %}
+    <p class = 'error'>Enter a password...</p>
+    {% endif %}
+
+    <br><br>
+    <label class = 'body'>Retype password</label><br><br>
+    <input type="text" name="verify" id="" placeholder="Retype password..." value = ''>
+
+    {% if error_post %}
+    <p class = 'error'>Enter a password...</p>
+    {% endif %}
+
+    <br><br>
+    <input type="submit" name = "register_submit" placeholder = "Register" value = 'Register'>
+
+</form>
+
+{% endblock %}

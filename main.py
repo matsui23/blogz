@@ -2,10 +2,9 @@ from flask import Flask, request, redirect, render_template, session, flash, url
 from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:blog@localhost:8889/build-a-blog'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:pass@localhost:8889/blogz'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
-
 
 class Blog(db.Model):
 
@@ -17,6 +16,15 @@ class Blog(db.Model):
         self.title = title
         self.body = body
 
+class User(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(120))
+    password = db.Column(db.String(120))
+    
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -27,8 +35,6 @@ def index():
         titles = Blog.query.all()
         return render_template('blog.html', titles = titles)
         
-    
-
 @app.route('/blog', methods=['POST','GET'])
 def blog():
     title = 'Build-a-blog'
@@ -71,8 +77,6 @@ def newpost():
         
         return render_template('blog.html', titles = titles)
         
-
-
     if request.method == 'GET':
         return render_template('newpost.html')
 
@@ -82,12 +86,21 @@ def see_post():
    # if request.method == 'POST'
   #      pass
     print('----------------------')
-    print('----------------------')
-    print('----------------------')
     if request.method == 'GET':
         current_id = request.args.get('id')
         post = Blog.query.get(current_id)
         return render_template('post.html', post = post)
+
+@app.route('/register', methods = ['POST', 'GET'])
+def register():
+
+    print('-------------------------------')
+    if request.method == 'GET':
+        print('-------------------------------')
+        return render_template('register.html')
+
+    if request.method == 'POST':
+        return render_template('register.html')
 
 if __name__ == '__main__':
     app.run()

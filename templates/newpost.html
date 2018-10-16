@@ -3,22 +3,23 @@
 {% block content %}
 
 <form action="/newpost" method="POST" id = 'blog_form'>
-
+    <label class = 'body'>Post Title</label>
+    <br><br>
     <input type="text" name="title" id="" placeholder = "Post title..." value = '{{title}}'>
 
     {% if error_title %}
     <p class = 'error'>Enter a title for you blog...</p>
     {% endif %}
 
-    <br>
-
+    <br><br>
+    <label class = 'body'>Post Body</label><br><br>
     <input type="text" name="post" id="" placeholder="Enter some content..." value = '{{post}}'>
 
     {% if error_post %}
     <p class = 'error'>Enter content for your post...</p>
     {% endif %}
 
-    <br>
+    <br><br>
     <input type="submit" name = "post_submit" placeholder = "Post it!" value = 'Post it!'>
 
 </form>
