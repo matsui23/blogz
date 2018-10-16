@@ -2,13 +2,24 @@
 
 {% block content %}
 
-<form action="/newpost" method="POST">
+<form action="/newpost" method="POST" id = 'blog_form'>
 
-    <input type="text" name="title" id="" placeholder = "Post title...">
+    <input type="text" name="title" id="" placeholder = "Post title..." value = '{{title}}'>
+
+    {% if error_title %}
+    <p class = 'error'>Enter a title for you blog...</p>
+    {% endif %}
+
     <br>
-    <input type="text area" name="post" id="" placeholder = "Blog entry...">
+
+    <input type="text" name="post" id="" placeholder="Enter some content..." value = '{{post}}'>
+
+    {% if error_post %}
+    <p class = 'error'>Enter content for your post...</p>
+    {% endif %}
+
     <br>
-    <input type="submit" name = "post_submit" placeholder = "Post it!">
+    <input type="submit" name = "post_submit" placeholder = "Post it!" value = 'Post it!'>
 
 </form>
 

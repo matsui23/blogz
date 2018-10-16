@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, session, flash
+from flask import Flask, request, redirect, render_template, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -24,8 +24,10 @@ def index():
     if request.method == 'POST':
         return render_template('blog.html')
     if request.method == 'GET':
-        return render_template('base.html', title = title)
-    #tasks = Task.query.filter_by(completed=False).all()
+        titles = Blog.query.all()
+        return render_template('blog.html', titles = titles)
+        
+    
 
 @app.route('/blog', methods=['POST','GET'])
 def blog():
@@ -33,7 +35,9 @@ def blog():
     if request.method == 'POST':
         return render_template('blog.html')
     if request.method == 'GET':
-        return render_template('base.html')
+
+        titles = Blog.query.all()
+        return render_template('blog.html', titles = titles)
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def newpost():
@@ -41,16 +45,49 @@ def newpost():
         
         title = request.form['title']
         post = request.form['post']
+        
+        error_title = False
+        error_post = False
+
+        if title == '':
+            error_title = True
+            print(error_title)
+            return render_template('newpost.html', error_title = error_title, error_post = error_post, 
+            title = title, post = post)
+        if post == '':
+            print(error_post)
+            error_post = True
+            return render_template('newpost.html', error_title = error_title, error_post = error_post, 
+            title = title, post = post)
+
         new_post = Blog(title, post)
         db.session.add(new_post)
         db.session.commit()
+
+        current_id = new_post.id
+        return redirect('/post?id={0}'.format(current_id))
         
         titles = Blog.query.all()
         
         return render_template('blog.html', titles = titles)
+        
+
 
     if request.method == 'GET':
         return render_template('newpost.html')
+
+@app.route('/post', methods = ['POST', 'GET'])
+def see_post():
+    
+   # if request.method == 'POST'
+  #      pass
+    print('----------------------')
+    print('----------------------')
+    print('----------------------')
+    if request.method == 'GET':
+        current_id = request.args.get('id')
+        post = Blog.query.get(current_id)
+        return render_template('post.html', post = post)
 
 if __name__ == '__main__':
     app.run()
