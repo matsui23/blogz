@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class = 'post_head'>Log in to Build-a-Blog</h1>
+<br>
+
+<br><br>
+<form action="/login" method="post">
+    <table>
+        <tr>
+            <td><label class = 'body' for="email">Email</label></td>
+            <td>&ensp;
+                <input name="email" type="email" value="{{ email }}">
+            </td>
+        </tr>
+        <tr>
+            <td><label class = 'body' for="password">Password</label></td>
+            <td>&ensp;
+                <input name="password" type="password">
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Login">
+</form>
+
+{% endblock %}

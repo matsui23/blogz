@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 
+<p>logged in as {{current_user}}</p>
+
 {% block content %}
+
+<p>logged in as {{current_user}}</p>
 
 {% for title in titles %}
 
 
 
-<a href='/post?id={{title.id}}' class = 'link_head'>{{title.title}}</a>
+<a href='/post?id={{title.id}}&user_id={{title.owner_id}}' class = 'link_head'>{{title.title}}</a>
 
 <!-- <p class = 'body'>{{title.id}}</p> -->
 <p class = 'body'>{{title.body}}</p>

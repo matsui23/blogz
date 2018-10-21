@@ -2,11 +2,17 @@
 
 {% block content %}
 
-<form action='/register' method="POST" id = 'register_form'>
-    <label class = 'body'>Username</label><br><br>
-    <input type="text" name="username" id="" placeholder = "Create a username..." value = ''>
+<h1 class = 'title'>Register</h1>
 
-    {% if error_title %}
+{% if duplicate_user %}
+<p class = 'error'>That email is already taken...</p>
+{% endif %}
+
+<form action='/register' method="POST" id = 'register_form'>
+    <label class = 'body'>Email</label><br><br>
+    <input type="text" name="email" id="" placeholder = "Enter a username..." value = ''>
+
+    {% if error_email %}
     <p class = 'error'>Enter a username...</p>
     {% endif %}
 
@@ -14,7 +20,7 @@
     <label class = 'body'>Password</label><br><br>
     <input type="text" name="password" id="" placeholder="Select a password..." value = ''>
 
-    {% if error_post %}
+    {% if error_password %}
     <p class = 'error'>Enter a password...</p>
     {% endif %}
 
@@ -22,7 +28,7 @@
     <label class = 'body'>Retype password</label><br><br>
     <input type="text" name="verify" id="" placeholder="Retype password..." value = ''>
 
-    {% if error_post %}
+    {% if error_password %}
     <p class = 'error'>Enter a password...</p>
     {% endif %}
 

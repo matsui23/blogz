@@ -4,14 +4,14 @@
 
 
 
-
+{% for post in posts %}
 
 <h1 class = 'post_head'>{{post.title}}</h1>
 
 
 <p class = 'body'>{{post.body}}</p>
 
-<p class = 'footer'> Posted by {{user.username}}</p>
+{% endfor %}
 
 
 
