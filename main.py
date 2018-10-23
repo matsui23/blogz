@@ -127,24 +127,31 @@ def register():
         email = request.form['email']
         password = request.form['password']
         verify = request.form['verify']
+
         duplicate_user = False
         error_email = False
         error_password = False
+        error_pass_match = False
 
         existing_user = User.query.filter_by(username = email).first()
 
         if existing_user:
             duplicate_user = True
-            return render_template('register.html', duplicate_user = duplicate_user, error_email = error_email, error_password = error_password)
+            return render_template('register.html', email = email, duplicate_user = duplicate_user, error_email = error_email, error_password = error_password, error_pass_match = error_pass_match)
 
-        if email =='':
+        if email =='' and password == '' and verify == '':
             error_email = True
-            return render_template('register.html', duplicate_user = duplicate_user, error_email = error_email, error_password = error_password)
+            error_password = True
+            return render_template('register.html', email = email, duplicate_user = duplicate_user, error_email = error_email, error_password = error_password, error_pass_match = error_pass_match)
         
         if password == '' or verify =='':
             error_password = True
-            return render_template('register.html', duplicate_user = duplicate_user, error_email = error_email, error_password = error_password)
+            return render_template('register.html', email = email, duplicate_user = duplicate_user, error_email = error_email, error_password = error_password, error_pass_match = error_pass_match)
         
+        if password != verify:
+            error_pass_match = True
+            return render_template('register.html', email = email, duplicate_user = duplicate_user, error_email = error_email, error_password = error_password, error_pass_match = error_pass_match)
+
         if not existing_user and password == verify and password:
 
             new_user  = User(email, password)
@@ -174,13 +181,35 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
+        error_email = False
+        error_password = False
+        error_email_empty = False
+        error_password_empty = False
+        
         user = User.query.filter_by(username = email).first()
+
         if user and user.password == password:
            
             session['email'] = email
             return redirect('/newpost')
-        else:
-            pass
+
+        if email == '' and password == '':
+
+            error_email_empty = True
+            error_password_empty = True
+
+            return render_template('login.html', email = email, error_email = error_email, error_password = error_password, error_email_empty = error_email_empty, error_password_empty = error_password_empty)
+
+        if not user:
+
+            error_email = True
+            return render_template('login.html', email = email, error_email = error_email, error_password = error_password, error_email_empty = error_email_empty, error_password_empty = error_password_empty)
+
+        if user.password != password:
+
+            error_password = True
+            return render_template('login.html', email = email, error_email = error_email, error_password = error_password, error_email_empty = error_email_empty, error_password_empty = error_password_empty)
+
 
         return render_template('login.html')
 

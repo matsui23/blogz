@@ -7,20 +7,35 @@
 
 <br><br>
 <form action="/login" method="post">
-    <table>
-        <tr>
-            <td><label class = 'body' for="email">Email</label></td>
-            <td>&ensp;
-                <input name="email" type="email" value="{{ email }}">
-            </td>
-        </tr>
-        <tr>
-            <td><label class = 'body' for="password">Password</label></td>
-            <td>&ensp;
-                <input name="password" type="password">
-            </td>
-        </tr>
-    </table>
+    
+            <label class = 'body' for="email">Email</label>
+            &ensp;
+            &ensp;
+            <br><br>
+                <input name="email" type="text" value="{{email}}" placeholder = 'Enter your username'>
+                {% if error_email_empty %}
+                    <p class = 'error'>Please provide your username.</p>
+                {% endif %}
+
+                {% if error_email %}
+                    <p class = 'error'>That username is not currently issued.</p>
+                {% endif %}
+            <br><br>
+        
+           <label class = 'body' for="password">Password</label>
+            &ensp;
+            &ensp;
+            <br><br>
+                <input name="password" type="password" placeholder="Enter your password">
+                {% if error_password_empty %}
+                    <p class = 'error'>Please enter your password.</p>
+                {% endif %}
+                {% if error_password %}
+                    <p class = 'error'>That password didnt match.</p>
+                {% endif %}
+            <br><br>
+        
+    
     <input type="submit" value="Login">
 </form>
 

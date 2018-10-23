@@ -10,7 +10,7 @@
 
 <form action='/register' method="POST" id = 'register_form'>
     <label class = 'body'>Email</label><br><br>
-    <input type="text" name="email" id="" placeholder = "Enter a username..." value = ''>
+    <input type="text" name="email" id="" placeholder = "Enter a username..." value = '{{email}}'>
 
     {% if error_email %}
     <p class = 'error'>Enter a username...</p>
@@ -30,6 +30,10 @@
 
     {% if error_password %}
     <p class = 'error'>Enter a password...</p>
+    {% endif %}
+
+    {% if error_pass_match %}
+    <p class = 'error'>Those passwords don't match.</p>
     {% endif %}
 
     <br><br>
