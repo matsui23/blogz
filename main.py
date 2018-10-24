@@ -58,9 +58,16 @@ def blog():
         print(session['email'])
         print('================')
         titles = Blog.query.all()
+        #titles_id = Blog.query.get(id)
+        print('++++++++++++++++++++++++++++')
+        users = User.query.all()
+        #print(titles_id)
+        print(users)
+
+        print('++++++++++++++++++++++++++++')
+
         
-        
-        return render_template('blog.html', titles = titles, current_user = current_user)
+        return render_template('blog.html', titles = titles, current_user = current_user, users = users)
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def newpost():

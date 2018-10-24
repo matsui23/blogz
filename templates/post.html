@@ -2,14 +2,14 @@
 
 {% block content %}
 
-<h1 class = 'title'>Post something</h1>
+
 
 <h1 class = 'post_head'>{{post.title}}</h1>
 
 
 <p class = 'body'>{{post.body}}</p>
 
-<p class = 'footer'> Posted by {{user.username}}</p>
+<a class = 'link' href="/userposts?id={{user.id}}">Posted by {{user.username}}</a>
 
 
 

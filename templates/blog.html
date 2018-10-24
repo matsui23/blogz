@@ -12,10 +12,18 @@
 
 
 
-<a href='/post?id={{title.id}}&user_id={{title.owner_id}}' class = 'link_head'>{{title.title}}</a>
+<a href='/post?id={{title.id}}&user_id={{title.owner_id}}' class = 'link_head'>{{title.title}}</a><br>
 
 <!-- <p class = 'body'>{{title.id}}</p> -->
-<p class = 'body'>{{title.body}}</p>
+<p class = 'body'>{{title.body}}</p><br>
+
+{% for user in users %}
+{% if user.id == title.owner_id %}
+
+<a class = 'link' href="/userposts?id={{title.owner_id}}">{{user.username}}</a><br><br>
+
+{% endif %}
+{% endfor %}
 
 {% endfor %}
 
